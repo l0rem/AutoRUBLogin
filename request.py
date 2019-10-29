@@ -90,8 +90,8 @@ class Request(object):
                  con_pool_size=1,
                  proxy_url=None,
                  urllib3_proxy_kwargs=None,
-                 connect_timeout=5.,
-                 read_timeout=5.):
+                 connect_timeout=10.,
+                 read_timeout=10.):
         if urllib3_proxy_kwargs is None:
             urllib3_proxy_kwargs = dict()
 

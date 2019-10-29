@@ -9,6 +9,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 
 bot_token = config('BOT_TOKEN')
+
 upd = Updater(bot_token,
               use_context=True)
 dp = upd.dispatcher
