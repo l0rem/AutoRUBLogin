@@ -1,11 +1,29 @@
-import requests
+import logging
+from decouple import config
+from telegram.ext import Updater
+from handlers import login_handler, relogin_handler
 
-base_url = 'https://login.rz.ruhr-uni-bochum.de/cgi-bin/start'
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                    level=logging.getLevelName(config('LOG_LEVEL',
+                                                      default='DEBUG')))
 
 
-def login_callback():
-    response = requests.get(base_url)
-    print(response.text)
+bot_token = config('BOT_TOKEN')
+upd = Updater(bot_token,
+              use_context=True)
+dp = upd.dispatcher
 
 
-login_callback()
+def main():
+
+    dp.add_handler(login_handler)
+    dp.add_handler(relogin_handler)
+
+    upd.start_polling()
+    logging.info("Ready and listening for updates...")
+
+    upd.idle()
+
+
+if __name__ == '__main__':
+    main()
