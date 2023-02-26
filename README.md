@@ -13,7 +13,8 @@ you back in, as soon as you are logged out. An always-on PC or old Android smart
  - Docker
 
 In order to install docker on your PI, follow [these](https://www.simplilearn.com/tutorials/docker-tutorial/raspberry-pi-docker)
-instructions.
+instructions. After installation don't forget to update Docker, see [here](https://stackoverflow.com/a/72719088), in 
+order to give sufficient permissions to docker, **OTHERWISE SCRIPT WON'T RUN**.
 
 ## Installation process
  - Make sure that Docker is up and running
@@ -22,3 +23,8 @@ instructions.
  - Open and insert your login credentials into `.env-example` with something like `nano .env-example`, save changes
  - Rename file to `.env` with `mv .env-example .env`
  - Run `docker compose up -d` to start the script
+
+## Debugging
+In order to access logs of the script do `docker ps`, then find container named `autorublogin-login` and note its
+CONTAINER ID on the left of the line. Use that CONTAINER ID in `docker logs <CONTAINER_ID>` in order to get logs from 
+container.
