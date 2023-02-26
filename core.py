@@ -1,30 +1,27 @@
-import logging
+import time
+from ping3 import ping
 from decouple import config
-from telegram.ext import Updater
-from handlers import login_handler, relogin_handler
+from logging import getLogger
+from utils import login
 
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                    level=logging.getLevelName(config('LOG_LEVEL',
-                                                      default='DEBUG')))
+logger = getLogger()
 
+ping_target = config('PING_TARGET', cast=str, default='8.8.8.8')
+consecutive_fails = 0
 
-bot_token = config('BOT_TOKEN')
+while True:
+    response = ping(ping_target,
+                    timeout=1)
 
-upd = Updater(bot_token,
-              use_context=True)
-dp = upd.dispatcher
+    if not response:
+        consecutive_fails += 1
 
+        if consecutive_fails >= 2:
+            login()
+            continue
 
-def main():
+    else:
+        if consecutive_fails > 0:
+            consecutive_fails = 0
 
-    dp.add_handler(login_handler)
-    dp.add_handler(relogin_handler)
-
-    upd.start_polling()
-    logging.info("Ready and listening for updates...")
-
-    upd.idle()
-
-
-if __name__ == '__main__':
-    main()
+    time.sleep(1)
