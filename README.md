@@ -1,4 +1,5 @@
 # Automated RUB-Network Login 
+![login dot rz website](./docs/login_page.png?raw=true)
 In order to gain access to network in dorms connected to RUB-Network you have to constantly login over at
 [login dot rz](https://login.ruhr-uni-bochum.de/cgi-bin/start). Not only is it really annoying, but you are
 constantly being logged out due to inactivity. Apart from that, you will lose connection every day at 7:00 AM.
